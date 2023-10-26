@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{url_for('admin')}}">Sunita's Cakevilla</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url_for('admin')}}">Product <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('brands')}}">Quantiy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('categories')}}">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('userorders')}}">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('users')}}">Users</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{url_for('addproduct')}}">Add product</a>
+            <a class="dropdown-item" href="{{url_for('addbrand')}}">Add Quantity</a>
+            <a class="dropdown-item" href="{{url_for('addcat')}}">Add category</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<!--==========END NAVBAR ==============-->
+
+<div class="container">
+    {% include '_messages.html' %}
+    <table class="table tbale-sm">
+        <thead>
+            <th>Sr</th>
+            <th>Invoice Number</th>
+            <th>Status</th>
+            <th>Customer ID</th>
+            <th>Date Created</th>
+        </thead>
+        <tbody>
+        {% if allorders %}
+            {% for order in allorders %}
+                <tr>
+                <td>{{loop.index}}</td>
+                <td><a href="/userindorder/{{ order.invoice }}">{{ order.invoice }}</a></td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.customer_id }}</td> 
+                <td>{{ order.date_created }}</td>           
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
